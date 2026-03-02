@@ -13,5 +13,5 @@ export class UpdateAdminDto {
   @IsArray()
   @ArrayMinSize(1)
   @IsEnum(Roles, { each: true })
-  roles!: Roles[];
+  roles: Roles[];
 }

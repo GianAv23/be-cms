@@ -224,7 +224,7 @@ export class UserController {
     return res.status(200).json({ response });
   }
 
-  // GET: /users
+  // GET: /users/me
   @Get('me')
   async getProfile(@Req() req: ExpressRequestWithUser, @Res() res: Response) {
     const user = req.user;

@@ -33,6 +33,7 @@ model User {
 
 model News {
   uuid          String       @id @default(uuid())
+  published     Boolean      @default(false)
   title         String
   content       String
   category      NewsCategory
@@ -43,6 +44,7 @@ model News {
 
   NewsImage NewsImage?
   AdminNews AdminNews[]
+  NewsImageGallery NewsImageGallery[]
 
   @@map("news")
 }
@@ -58,6 +60,19 @@ model NewsImage {
 
   @@map("news_image")
 }
+
+model NewsImageGallery {
+  uuid      String             @id @default(uuid())
+  news_uuid String
+  fileType  ImageExtension
+  link      String? @unique
+  updatedAt DateTime           @default(now())
+
+  News News @relation(fields: [news_uuid], references: [uuid], onDelete: Cascade)
+
+  @@map("news_image_gallery")
+}
+
 
 model AdminNews {
   uuid       String   @default(uuid())
@@ -133,5 +148,6 @@ enum ImageExtension {
 
 enum ImageCategory {
   NEWS_IMAGE
+  NEWS_IMAGE_GALLERY
   ADS_IMAGE
 }

@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { InfrastructureModule } from './infrastructure/infrastructure.module';
-import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './modules/user/user.module';
 import { AuthGuard } from './common/guards/auth.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { NewsModule } from './modules/news/news.module';
+import { NewsImageModule } from './modules/news_image/news_image.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     InfrastructureModule,
     UserModule,
+    NewsModule,
+    NewsImageModule,
   ],
   controllers: [AppController],
   providers: [

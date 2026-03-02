@@ -1,0 +1,228 @@
+import { HttpException, Inject, Injectable } from '@nestjs/common';
+
+import type { IStorageBucketService } from 'src/common/interfaces/storage_bucket/storage_bucket.service.interface';
+import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+import { CreateNewsDto } from './dto/create-news.dto';
+import { GetNewsDto } from './dto/get-news.dto';
+import { UpdateNewsDto } from './dto/update-news.dto';
+
+@Injectable()
+export class NewsService {
+  constructor(
+    private readonly db: PrismaService,
+    @Inject('IStorageBucketService')
+    private readonly storageBucketService: IStorageBucketService,
+  ) {}
+
+  async createNews(user_uuid: string, createNewsDto: CreateNewsDto) {
+    try {
+      const result = await this.db.$transaction(async (tx) => {
+        const addNews = await tx.news.create({
+          data: {
+            title: createNewsDto.title,
+            content: createNewsDto.content,
+            category: createNewsDto.category,
+            published: createNewsDto.published,
+          },
+        });
+
+        await tx.adminNews.create({
+          data: {
+            user_uuid: user_uuid,
+            news_uuid: addNews.uuid,
+            created_by: true, // mark as original creator
+          },
+        });
+
+        return addNews;
+      });
+
+      return result;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async updateNews(
+    user_uuid: string,
+    uuid: string,
+    updateNewsDto: UpdateNewsDto,
+  ) {
+    try {
+      await this.db.news.findUniqueOrThrow({
+        where: {
+          uuid: uuid,
+        },
+      });
+
+      const result = await this.db.$transaction(async (tx) => {
+        const updateNews = await tx.news.update({
+          where: {
+            uuid: uuid,
+          },
+          data: {
+            title: updateNewsDto.title,
+            content: updateNewsDto.content,
+            category: updateNewsDto.category,
+            published: updateNewsDto.published,
+          },
+        });
+
+        await tx.adminNews.upsert({
+          where: {
+            user_uuid_news_uuid: {
+              user_uuid: user_uuid,
+              news_uuid: updateNews.uuid,
+            },
+          },
+          create: {
+            user_uuid: user_uuid,
+            news_uuid: updateNews.uuid,
+          },
+          update: {
+            user_uuid: user_uuid,
+            created_at: new Date(),
+          },
+        });
+      });
+
+      return result;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async deleteNews(uuid: string, user_uuid: string) {
+    try {
+      const deletedNews = await this.db.news.findUniqueOrThrow({
+        where: {
+          uuid: uuid,
+        },
+        include: {
+          NewsImage: true,
+          NewsImageGallery: true,
+        },
+      });
+
+      const imageLink = deletedNews.NewsImage?.link;
+
+      if (deletedNews.NewsImage) {
+        await this.db.newsImage.deleteMany({
+          where: {
+            news_uuid: uuid,
+          },
+        });
+      }
+
+      await this.db.adminNews.deleteMany({
+        where: {
+          news_uuid: uuid,
+        },
+      });
+
+      await this.db.news.delete({
+        where: {
+          uuid: uuid,
+        },
+      });
+
+      if (imageLink) {
+        await this.storageBucketService.deleteImageFromImageLink(
+          imageLink,
+          'NEWS_IMAGE',
+        );
+      }
+
+      return {
+        message: `Success deleted news ${deletedNews.title} by ${user_uuid} `,
+        data: deletedNews,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async getAllNewsCms(getNewsDto: GetNewsDto) {
+    try {
+      const page = getNewsDto.page ?? 1;
+      const limit = getNewsDto.limit ?? 10;
+
+      const whereClause = {
+        category: getNewsDto.category || undefined,
+        published:
+          getNewsDto.published !== undefined ? getNewsDto.published : undefined,
+        ...(getNewsDto.search
+          ? {
+              OR: [
+                {
+                  title: {
+                    contains: getNewsDto.search,
+                    mode: 'insensitive' as const,
+                  },
+                },
+                {
+                  content: {
+                    contains: getNewsDto.search,
+                    mode: 'insensitive' as const,
+                  },
+                },
+              ],
+            }
+          : {}),
+      };
+
+      const [news, total] = await Promise.all([
+        this.db.news.findMany({
+          orderBy: { updated_at: 'desc' },
+          where: whereClause,
+          skip: (page - 1) * limit,
+          take: limit,
+        }),
+        this.db.news.count({ where: whereClause }),
+      ]);
+
+      return {
+        news,
+        total,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async getNewsByIdCms(uuid: string) {
+    try {
+      const result = await this.db.news.findUniqueOrThrow({
+        where: {
+          uuid: uuid,
+        },
+        include: {
+          AdminNews: {
+            include: {
+              User: {
+                select: {
+                  full_name: true,
+                  email: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return result;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+}
