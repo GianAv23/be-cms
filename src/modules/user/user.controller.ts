@@ -224,7 +224,7 @@ export class UserController {
     return res.status(200).json({ response });
   }
 
-  // GET: /users/profile
+  // GET: /users
   @Get('me')
   async getProfile(@Req() req: ExpressRequestWithUser, @Res() res: Response) {
     const user = req.user;
@@ -276,11 +276,24 @@ export class UserController {
   // GET: /users/stats/totalbyrole
   @UseGuards(RoleGuard)
   @Role([Roles.ADMIN])
-  @Get('totalbyrole')
+  @Get('stats/totalbyrole')
   async getTotalCmsUsersByRole(@Res() res: Response) {
     const result = await this.userService.countTotalCmsUsersByRole();
     const response = new responseDto(
       'Total users by role retrieved successfully',
+      result,
+    );
+    return res.status(200).json({ response });
+  }
+
+  // GET: /users/stats/totalbystatus
+  @UseGuards(RoleGuard)
+  @Role([Roles.ADMIN])
+  @Get('stats/totalbystatus')
+  async getTotalCmsUsersByStatus(@Res() res: Response) {
+    const result = await this.userService.countTotalCmsUsersByStatus();
+    const response = new responseDto(
+      'Total users by status retrieved successfully',
       result,
     );
     return res.status(200).json({ response });

@@ -29,6 +29,9 @@ export class UserService {
       const checkUser = await this.db.user.findUnique({
         where: {
           email: registerUser.email,
+          NOT: {
+            status: UserStatus.DELETED,
+          },
         },
       });
 
@@ -70,11 +73,11 @@ export class UserService {
         },
       });
 
-      if (!user || user.status === 'DELETED') {
+      if (!user || user.status === UserStatus.DELETED) {
         throw new NotFoundException('User not found');
       }
 
-      if (user.status === 'REQUEST') {
+      if (user.status === UserStatus.REQUEST) {
         throw new UnauthorizedException(
           'User registration is pending approval',
         );
@@ -167,6 +170,9 @@ export class UserService {
       const existingUser = await this.db.user.findFirst({
         where: {
           email: addUser.email,
+          NOT: {
+            status: UserStatus.DELETED,
+          },
         },
       });
 
@@ -220,7 +226,9 @@ export class UserService {
         },
       });
 
-      return approvedUser;
+      const { password, ...userWithoutSensitiveData } = approvedUser;
+
+      return userWithoutSensitiveData;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -260,7 +268,9 @@ export class UserService {
         },
       });
 
-      return updateUserBySuperAdmin;
+      const { password, ...userWithoutSensitiveData } = updateUserBySuperAdmin;
+
+      return userWithoutSensitiveData;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -270,9 +280,14 @@ export class UserService {
 
   async deleteCmsUser(uuid: string) {
     try {
-      const user = await this.db.user.findUniqueOrThrow({
+      const user = await this.db.user.findUnique({
         where: {
           uuid: uuid,
+          AND: {
+            status: {
+              in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+            },
+          },
         },
       });
 
@@ -288,6 +303,7 @@ export class UserService {
           data: {
             status: UserStatus.DELETED,
             deleted_at: new Date(),
+            email: `${user.email}_DELETED`,
             session_token: null,
           },
         });
@@ -330,7 +346,9 @@ export class UserService {
       const limit = getAllUser?.limit ?? 10;
       const cmsUsers = await this.db.user.findMany({
         where: {
-          status: UserStatus.ACTIVE,
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
           ...(getAllUser.search
             ? {
                 OR: [
@@ -374,7 +392,9 @@ export class UserService {
     try {
       const totalCmsUsers = await this.db.user.count({
         where: {
-          status: UserStatus.ACTIVE,
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
         },
       });
       return totalCmsUsers;
@@ -417,6 +437,39 @@ export class UserService {
       ];
 
       return totalCmsUsersByRole;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async countTotalCmsUsersByStatus() {
+    try {
+      const activeUsers = await this.db.user.count({
+        where: {
+          status: UserStatus.ACTIVE,
+        },
+      });
+
+      const requestUsers = await this.db.user.count({
+        where: {
+          status: UserStatus.REQUEST,
+        },
+      });
+
+      const totalCmsUsersByStatus = [
+        {
+          status: UserStatus.ACTIVE,
+          count: activeUsers,
+        },
+        {
+          status: UserStatus.REQUEST,
+          count: requestUsers,
+        },
+      ];
+
+      return totalCmsUsersByStatus;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
