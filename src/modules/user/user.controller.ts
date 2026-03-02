@@ -120,7 +120,7 @@ export class UserController {
     }
   }
 
-  // POST: /users/refresh
+  // POST: /users/refresh-token
   @Refresh()
   @Get('refresh-token')
   async refreshAccessToken(
