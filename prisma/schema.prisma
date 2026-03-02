@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  uuid          String     @id @default(uuid())
+  status        UserStatus @default(ACTIVE)
+  email         String     @unique @db.VarChar(64)
+  full_name     String
+  password      String     @db.VarChar(64)
+  roles         Roles[]
+  session_token String?
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  deleted_at    DateTime?
+
+  AdminNews AdminNews[]
+
+  @@map("user")
+}
+
+model News {
+  uuid          String       @id @default(uuid())
+  title         String
+  content       String
+  category      NewsCategory
+  external_link String?
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+  deleted_at    DateTime?
+
+  NewsImage NewsImage?
+  AdminNews AdminNews[]
+
+  @@map("news")
+}
+
+model NewsImage {
+  uuid      String         @id @default(uuid())
+  news_uuid String         @unique
+  fileType  ImageExtension
+  link      String?
+  updatedAt DateTime       @default(now())
+
+  News News @relation(fields: [news_uuid], references: [uuid], onDelete: Cascade)
+
+  @@map("news_image")
+}
+
+model AdminNews {
+  uuid       String   @default(uuid())
+  user_uuid  String
+  news_uuid  String
+  created_by Boolean  @default(false) // true for original creator, false for editors
+  created_at DateTime @default(now())
+
+  User User @relation(fields: [user_uuid], references: [uuid], onDelete: Cascade)
+  News News @relation(fields: [news_uuid], references: [uuid], onDelete: Cascade)
+
+  @@id([user_uuid, news_uuid])
+  @@map("admin_news")
+}
+
+model Ads {
+  uuid          String      @id @default(uuid())
+  published     Boolean     @default(false)
+  title         String
+  content       String?
+  category      AdsCategory
+  partner_name  String?
+  external_link String?
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+  deleted_at    DateTime?
+
+  AdsImage AdsImage?
+
+  @@map("ads")
+}
+
+model AdsImage {
+  uuid      String         @id @default(uuid())
+  ads_uuid  String         @unique
+  fileType  ImageExtension
+  link      String?
+  updatedAt DateTime       @default(now())
+
+  Ads Ads @relation(fields: [ads_uuid], references: [uuid], onDelete: Cascade)
+
+  @@map("ads_image")
+}
+
+enum UserStatus {
+  ACTIVE
+  DELETED
+}
+
+enum Roles {
+  ADMIN
+  NEWS_EDITOR
+  ADS_EDITOR
+  DELETED
+}
+
+enum NewsCategory {
+  INTERNAL
+  EXTERNAL
+}
+
+enum AdsCategory {
+  INTERNAL
+  EXTERNAL
+}
+
+enum ImageExtension {
+  JPG
+  PNG
+  JPEG
+}
+
+enum ImageCategory {
+  NEWS_IMAGE
+  ADS_IMAGE
+}
