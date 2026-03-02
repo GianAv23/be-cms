@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AddUserDto } from './dto/add-user.dto';
 import { GetAllUserDto } from './dto/get-all-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 import { UpdateAdminDto } from './dto/update-user.dto';
 import { UserPayload } from './interfaces/login-user';
 
@@ -22,6 +23,44 @@ export class UserService {
     private readonly db: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
+
+  async registerUser(registerUser: RegisterUserDto) {
+    try {
+      const checkUser = await this.db.user.findUnique({
+        where: {
+          email: registerUser.email,
+        },
+      });
+
+      if (checkUser) {
+        throw new ConflictException('Email already exists');
+      }
+
+      if (registerUser.password !== registerUser.confirm_password) {
+        throw new ConflictException(
+          'Password and confirm password do not match',
+        );
+      }
+
+      const newUser = await this.db.user.create({
+        data: {
+          email: registerUser.email,
+          full_name: registerUser.full_name,
+          password: await hash(registerUser.password, 12),
+          status: UserStatus.REQUEST,
+          roles: undefined,
+        },
+      });
+
+      const { password, uuid, ...userWithoutSensitiveData } = newUser;
+
+      return userWithoutSensitiveData;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
 
   async loginUser(loginUser: LoginUserDto) {
     try {
@@ -33,6 +72,12 @@ export class UserService {
 
       if (!user || user.status === 'DELETED') {
         throw new NotFoundException('User not found');
+      }
+
+      if (user.status === 'REQUEST') {
+        throw new UnauthorizedException(
+          'User registration is pending approval',
+        );
       }
 
       if (!(await compare(loginUser.password, user.password))) {
@@ -57,7 +102,7 @@ export class UserService {
         },
       });
 
-      return {
+      const tokens = {
         access_token: await this.jwtService.signAsync(payload, {
           expiresIn: '12h',
         }),
@@ -66,6 +111,7 @@ export class UserService {
         }),
         payload,
       };
+      return tokens;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -99,7 +145,7 @@ export class UserService {
         data: { session_token: newPayload.uniqueUUID },
       });
 
-      return {
+      const tokens = {
         access_token: await this.jwtService.signAsync(newPayload, {
           expiresIn: '12h',
         }),
@@ -108,6 +154,7 @@ export class UserService {
         }),
         payload: newPayload,
       };
+      return tokens;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -147,7 +194,41 @@ export class UserService {
     }
   }
 
-  async updateCmsUser(uuid: string, updateUserDto: UpdateAdminDto) {
+  async approveUserRegistration(uuid: string) {
+    try {
+      const user = await this.db.user.findUniqueOrThrow({
+        where: {
+          uuid: uuid,
+        },
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      if (user.status === UserStatus.ACTIVE) {
+        throw new ConflictException('User is already active');
+      }
+
+      const approvedUser = await this.db.user.update({
+        where: {
+          uuid: uuid,
+        },
+        data: {
+          status: UserStatus.ACTIVE,
+          roles: undefined,
+        },
+      });
+
+      return approvedUser;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+    }
+  }
+
+  async updateCmsUserRole(uuid: string, updateUserDto: UpdateAdminDto) {
     try {
       const user = await this.db.user.findUniqueOrThrow({
         where: {

@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   uuid          String     @id @default(uuid())
-  status        UserStatus @default(ACTIVE)
+  status        UserStatus @default(REQUEST)
   email         String     @unique @db.VarChar(64)
   full_name     String
   password      String     @db.VarChar(64)
@@ -48,11 +48,11 @@ model News {
 }
 
 model NewsImage {
-  uuid      String         @id @default(uuid())
-  news_uuid String         @unique
-  fileType  ImageExtension
-  link      String?
-  updatedAt DateTime       @default(now())
+  uuid       String         @id @default(uuid())
+  news_uuid  String         @unique
+  file_type  ImageExtension
+  link       String?
+  updated_at DateTime       @default(now())
 
   News News @relation(fields: [news_uuid], references: [uuid], onDelete: Cascade)
 
@@ -91,11 +91,11 @@ model Ads {
 }
 
 model AdsImage {
-  uuid      String         @id @default(uuid())
-  ads_uuid  String         @unique
-  fileType  ImageExtension
-  link      String?
-  updatedAt DateTime       @default(now())
+  uuid       String         @id @default(uuid())
+  ads_uuid   String         @unique
+  file_type  ImageExtension
+  link       String?
+  updated_at DateTime       @default(now())
 
   Ads Ads @relation(fields: [ads_uuid], references: [uuid], onDelete: Cascade)
 
@@ -104,6 +104,7 @@ model AdsImage {
 
 enum UserStatus {
   ACTIVE
+  REQUEST
   DELETED
 }
 
