@@ -6,12 +6,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import { NewsCategory } from 'generated/prisma/client';
 import type { IStorageBucketService } from 'src/common/interfaces/storage_bucket/storage_bucket.service.interface';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { GetNewsDto } from './dto/get-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-import { NewsCategory } from 'generated/prisma/client';
 
 @Injectable()
 export class NewsService {
@@ -134,6 +134,9 @@ export class NewsService {
       }
 
       const imageLink = deletedNews.NewsImage?.link;
+      const galleryImageLinks = deletedNews.NewsImageGallery.map(
+        (image) => image.link,
+      ).filter((link): link is string => link !== null);
 
       if (deletedNews.NewsImage) {
         await this.db.newsImage.deleteMany({
@@ -159,6 +162,13 @@ export class NewsService {
         await this.storageBucketService.deleteImageFromImageLink(
           imageLink,
           'NEWS_IMAGE',
+        );
+      }
+
+      for (const galleryImageLink of galleryImageLinks) {
+        await this.storageBucketService.deleteImageFromImageLink(
+          galleryImageLink,
+          'NEWS_IMAGE_GALLERY',
         );
       }
 
