@@ -5,13 +5,19 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
+
+# Copy Prisma schema
 COPY prisma ./prisma/
 
 # Install dependencies
 RUN npm ci
 
+# Copy TypeScript config and NestJS config (IMPORTANT!)
+COPY tsconfig*.json ./
+COPY nest-cli.json ./
+
 # Copy source code
-COPY . .
+COPY src ./src
 
 # Generate Prisma Client
 RUN npx prisma generate
