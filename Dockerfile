@@ -6,33 +6,20 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Copy Prisma files
-COPY prisma ./prisma/
+# Install ALL dependencies (including dev)
+RUN npm install
 
-# Install dependencies (including dev dependencies for build)
-RUN npm ci
-
-# Copy necessary config files for build
-COPY tsconfig*.json ./
-COPY nest-cli.json ./
-
-# Copy source code
-COPY src ./src
+# Copy everything
+COPY . .
 
 # Generate Prisma Client
 RUN npx prisma generate
 
-# Build the application
+# Build
 RUN npm run build
 
-# Verify build output exists and show structure
-RUN echo "=== Build output structure ===" && \
-    ls -la dist/ && \
-    echo "=== Contents of dist ===" && \
-    find dist -type f | head -20
-
-# Production stage
-FROM node:20-alpine AS production
+# Production stage  
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -42,50 +29,39 @@ RUN apk add --no-cache curl
 # Copy package files
 COPY package*.json ./
 
-# Copy Prisma schema and migrations
-COPY prisma/schema.prisma ./prisma/
-COPY prisma/migrations ./prisma/migrations/
+# Install production dependencies
+RUN npm install --only=production
 
-# Install production dependencies only
-RUN npm ci --only=production && \
-    npx prisma generate && \
-    npm cache clean --force
+# Copy Prisma for runtime generation
+COPY prisma ./prisma/
+RUN npx prisma generate
 
-# Copy built application from builder stage
+# Copy built app from builder
 COPY --from=builder /app/dist ./dist
 
-# Verify dist structure and find main.js
-RUN echo "=== Copied dist structure ===" && \
-    ls -la dist/ && \
-    echo "=== Looking for main.js ===" && \
-    find dist -name "main.js" -type f
+# Copy generated Prisma client
+COPY --from=builder /app/generated ./generated
 
-# Copy entrypoint script
+# Copy entrypoint
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Create uploads directory structure
+# Create directories
 RUN mkdir -p uploads/news uploads/news-gallery uploads/ads
 
-# Create a non-root user
+# Create user
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nestjs -u 1001
+    adduser -S nestjs -u 1001 && \
+    chown -R nestjs:nodejs /app
 
-# Change ownership of the app directory and uploads
-RUN chown -R nestjs:nodejs /app
-
-# Switch to non-root user
 USER nestjs
 
-# Expose the application port
 EXPOSE 3000
 
-# Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-3000}/health/live || exit 1
+  CMD curl -f http://localhost:3000/health/live || exit 1
 
-# Set entrypoint to initialize directories and run migrations
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-# Update CMD to use correct path (likely dist/src/main.js currently)
-CMD ["node", "dist/main.js"]
+# Like NestJS docs - no .js extension
+CMD ["node", "dist/main"]
