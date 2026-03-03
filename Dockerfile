@@ -39,6 +39,9 @@ RUN npm ci --only=production && \
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
+# Copy migrations directory (IMPORTANT for prisma migrate deploy)
+COPY --from=builder /app/prisma/migrations ./prisma/migrations
+
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
@@ -63,7 +66,7 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD curl -f http://localhost:${PORT:-3000}/health/live || exit 1
 
-# Set entrypoint to initialize directories
+# Set entrypoint to initialize directories and run migrations
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Start the application
