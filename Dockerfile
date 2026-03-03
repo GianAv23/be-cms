@@ -25,12 +25,6 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
-# Debug: Show what was built
-RUN echo "=== Build output ===" && \
-    ls -laR dist/ && \
-    echo "=== Searching for main files ===" && \
-    find dist -name "main*" -type f
-
 # Production stage
 FROM node:20-alpine AS production
 
@@ -53,13 +47,6 @@ RUN npm ci --only=production && \
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
-
-# Debug: Show what was copied
-RUN echo "=== Copied dist contents ===" && \
-    ls -laR dist/ && \
-    echo "=== Node modules for generated Prisma ===" && \
-    ls -la node_modules/.prisma/ || echo "Prisma not in node_modules" && \
-    ls -la generated/ || echo "No generated folder"
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -88,5 +75,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 # Set entrypoint to initialize directories and run migrations
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-# Use the same format as NestJS docs (without .js extension)
-CMD ["node", "dist/main"]
+# Fix: main.js is in dist/src/main.js (not dist/main.js)
+CMD ["node", "dist/src/main"]
