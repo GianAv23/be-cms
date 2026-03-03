@@ -42,6 +42,13 @@ coverage
 *.md
 !README.md
 
+# Prisma config (not needed in Docker)
+prisma.config.ts
+
+# But keep these
+!prisma/schema.prisma
+!prisma/migrations
+
 # Don't ignore these (they are needed for build)
 !tsconfig.json
 !tsconfig.build.json

@@ -6,13 +6,13 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Copy Prisma schema
+# Copy Prisma schema (NOT prisma.config.ts)
 COPY prisma ./prisma/
 
 # Install dependencies
 RUN npm ci
 
-# Copy TypeScript config and NestJS config (IMPORTANT!)
+# Copy TypeScript config and NestJS config
 COPY tsconfig*.json ./
 COPY nest-cli.json ./
 
@@ -35,7 +35,10 @@ RUN apk add --no-cache curl
 
 # Copy package files
 COPY package*.json ./
-COPY prisma ./prisma/
+
+# Copy Prisma schema and migrations (NOT prisma.config.ts)
+COPY prisma/schema.prisma ./prisma/schema.prisma
+COPY prisma/migrations ./prisma/migrations
 
 # Install production dependencies only
 RUN npm ci --only=production && \
@@ -44,9 +47,6 @@ RUN npm ci --only=production && \
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
-
-# Copy migrations directory (IMPORTANT for prisma migrate deploy)
-COPY --from=builder /app/prisma/migrations ./prisma/migrations
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
