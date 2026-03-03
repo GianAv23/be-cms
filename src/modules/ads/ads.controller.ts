@@ -88,4 +88,16 @@ export class AdsController {
     const response = new responseDto(`Success get ads with id ${uuid}`, result);
     return res.status(200).json({ response });
   }
+
+  @UseGuards(RoleGuard)
+  @Role([Roles.ADMIN, Roles.ADS_EDITOR])
+  @Get('stats/categorydistribution')
+  async getAdsCategoryDistribution(@Res() res: Response) {
+    const result = await this.adsService.getAdsCategoryDistribution();
+    const response = new responseDto(
+      'Success get ads category distribution',
+      result,
+    );
+    return res.status(200).json({ response });
+  }
 }

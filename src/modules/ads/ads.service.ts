@@ -16,7 +16,7 @@ import { UpdateAdsDto } from './dto/update-ads.dto';
 @Injectable()
 export class AdsService {
   constructor(
-    private readonly prisma: PrismaService,
+    private readonly db: PrismaService,
     @Inject('IStorageBucketService')
     private readonly storageBucketService: IStorageBucketService,
   ) {}
@@ -25,7 +25,7 @@ export class AdsService {
     try {
       this.validatePartnerName(dto.category, dto.partner_name ?? undefined);
 
-      const addAds = await this.prisma.ads.create({
+      const addAds = await this.db.ads.create({
         data: {
           title: dto.title,
           content: dto.content,
@@ -50,7 +50,7 @@ export class AdsService {
 
   async editAds(uuid: string, dto: UpdateAdsDto) {
     try {
-      const existingAds = await this.prisma.ads.findUnique({
+      const existingAds = await this.db.ads.findUnique({
         where: {
           uuid: uuid,
         },
@@ -60,7 +60,7 @@ export class AdsService {
         throw new NotFoundException(`Ads with uuid ${uuid} not found`);
       }
 
-      const updatedAds = await this.prisma.ads.update({
+      const updatedAds = await this.db.ads.update({
         where: {
           uuid: uuid,
         },
@@ -88,7 +88,7 @@ export class AdsService {
 
   async deleteAds(uuid: string) {
     try {
-      const deletedAds = await this.prisma.ads.findUnique({
+      const deletedAds = await this.db.ads.findUnique({
         where: {
           uuid: uuid,
         },
@@ -104,14 +104,14 @@ export class AdsService {
       const imageLink = deletedAds.AdsImage?.link;
 
       if (deletedAds.AdsImage) {
-        await this.prisma.adsImage.deleteMany({
+        await this.db.adsImage.deleteMany({
           where: {
             ads_uuid: uuid,
           },
         });
       }
 
-      await this.prisma.ads.delete({
+      await this.db.ads.delete({
         where: {
           uuid: uuid,
         },
@@ -165,13 +165,13 @@ export class AdsService {
       };
 
       const [ads, total] = await Promise.all([
-        this.prisma.ads.findMany({
+        this.db.ads.findMany({
           orderBy: { updated_at: 'desc' },
           where: whereClause,
           skip: (page - 1) * limit,
           take: limit,
         }),
-        this.prisma.ads.count({
+        this.db.ads.count({
           where: whereClause,
         }),
       ]);
@@ -193,7 +193,7 @@ export class AdsService {
 
   async getAdsByIdCms(uuid: string) {
     try {
-      const result = await this.prisma.ads.findUnique({
+      const result = await this.db.ads.findUnique({
         where: {
           uuid: uuid,
         },
@@ -211,6 +211,40 @@ export class AdsService {
 
       throw new InternalServerErrorException(
         `Failed to get ads by id: ${error.message}`,
+      );
+    }
+  }
+
+  async getAdsCategoryDistribution() {
+    try {
+      const allCategories = Object.values(AdsCategory);
+
+      const categoryMap = new Map(
+        allCategories.map((category) => [category, 0]),
+      );
+
+      const result = await this.db.ads.groupBy({
+        by: ['category'],
+        _count: {
+          category: true,
+        },
+      });
+
+      result.forEach((item) => {
+        categoryMap.set(item.category, item._count.category);
+      });
+
+      return Array.from(categoryMap.entries()).map(([category, count]) => ({
+        category,
+        count,
+      }));
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        `Failed to get ads category distribution: ${error.message}`,
       );
     }
   }

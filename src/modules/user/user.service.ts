@@ -409,7 +409,18 @@ export class UserService {
           updated_at: true,
         },
       });
-      return cmsUsers;
+
+      const totalCmsUsers = await this.db.user.count({
+        where: {
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
+        },
+      });
+      return {
+        users: cmsUsers,
+        total: totalCmsUsers,
+      };
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;

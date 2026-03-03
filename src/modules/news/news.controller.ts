@@ -112,4 +112,16 @@ export class NewsController {
 
     return res.status(200).json({ response });
   }
+
+  @UseGuards(RoleGuard)
+  @Role([Roles.ADMIN, Roles.NEWS_EDITOR])
+  @Get('stats/categorydistribution')
+  async getNewsCategoryDistribution(@Res() res: Response) {
+    const result = await this.newsService.getNewsCategoryDistribution();
+    const response = new responseDto(
+      'Success get news category distribution',
+      result,
+    );
+    return res.status(200).json({ response });
+  }
 }

@@ -11,6 +11,7 @@ import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { GetNewsDto } from './dto/get-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
+import { NewsCategory } from 'generated/prisma/client';
 
 @Injectable()
 export class NewsService {
@@ -262,6 +263,40 @@ export class NewsService {
 
       throw new InternalServerErrorException(
         `Failed to get news by id: ${error.message}`,
+      );
+    }
+  }
+
+  async getNewsCategoryDistribution() {
+    try {
+      const allCategories = Object.values(NewsCategory);
+
+      const categoryMap = new Map(
+        allCategories.map((category) => [category, 0]),
+      );
+
+      const result = await this.db.news.groupBy({
+        by: ['category'],
+        _count: {
+          category: true,
+        },
+      });
+
+      result.forEach((item) => {
+        categoryMap.set(item.category, item._count.category);
+      });
+
+      return Array.from(categoryMap.entries()).map(([category, count]) => ({
+        category,
+        count,
+      }));
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        `Failed to get news category distribution: ${error.message}`,
       );
     }
   }
