@@ -25,8 +25,11 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
-# Verify build output exists
-RUN ls -la dist/
+# Verify build output exists and show structure
+RUN echo "=== Build output structure ===" && \
+    ls -la dist/ && \
+    echo "=== Contents of dist ===" && \
+    find dist -type f | head -20
 
 # Production stage
 FROM node:20-alpine AS production
@@ -51,9 +54,11 @@ RUN npm ci --only=production && \
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Verify dist was copied
-RUN ls -la dist/ && \
-    test -f dist/main.js || (echo "ERROR: dist/main.js not found!" && exit 1)
+# Verify dist structure and find main.js
+RUN echo "=== Copied dist structure ===" && \
+    ls -la dist/ && \
+    echo "=== Looking for main.js ===" && \
+    find dist -name "main.js" -type f
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -82,5 +87,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 # Set entrypoint to initialize directories and run migrations
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-# Start the application (use .js extension)
+# Update CMD to use correct path (likely dist/src/main.js currently)
 CMD ["node", "dist/main.js"]
