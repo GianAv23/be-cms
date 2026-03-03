@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthGuard } from './common/guards/auth.guard';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { AdsImageModule } from './modules/ads-image/ads_image.module';
+import { AdsModule } from './modules/ads/ads.module';
 import { NewsModule } from './modules/news/news.module';
 import { NewsImageModule } from './modules/news_image/news_image.module';
 import { UserModule } from './modules/user/user.module';
@@ -19,6 +21,8 @@ import { UserModule } from './modules/user/user.module';
     UserModule,
     NewsModule,
     NewsImageModule,
+    AdsModule,
+    AdsImageModule,
   ],
   controllers: [AppController],
   providers: [

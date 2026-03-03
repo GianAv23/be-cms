@@ -40,7 +40,6 @@ model News {
   external_link String?
   created_at    DateTime     @default(now())
   updated_at    DateTime     @updatedAt
-  deleted_at    DateTime?
 
   NewsImage NewsImage?
   AdminNews AdminNews[]
@@ -98,7 +97,6 @@ model Ads {
   external_link String?
   created_at    DateTime    @default(now())
   updated_at    DateTime    @updatedAt
-  deleted_at    DateTime?
 
   AdsImage AdsImage?
 

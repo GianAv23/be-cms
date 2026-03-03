@@ -49,6 +49,10 @@ export class NewsImageService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get news image: ${error.message}`,
+      );
     }
   }
 
@@ -108,21 +112,20 @@ export class NewsImageService {
       if (error instanceof HttpException) {
         throw error;
       }
+      throw new InternalServerErrorException(
+        `Failed to upload news image: ${error.message}`,
+      );
     }
   }
 
   async getNewsImageFile(imageLink: string) {
-    try {
-      const fileBuffer = await this.storageBucket.getImageFile(
-        imageLink,
-        'NEWS_IMAGE',
-      );
+    const fileBuffer = await this.storageBucket.getImageFile(
+      imageLink,
+      'NEWS_IMAGE',
+    );
 
-      const extension = imageLink.split('.').pop();
-      return { fileBuffer: fileBuffer, fileType: `image/${extension}` };
-    } catch (error) {
-      throw new HttpException(error, 500);
-    }
+    const extension = imageLink.split('.').pop();
+    return { fileBuffer: fileBuffer, fileType: `image/${extension}` };
   }
 
   async uploadGalleryImage(
@@ -158,6 +161,10 @@ export class NewsImageService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to upload news gallery image: ${error.message}`,
+      );
     }
   }
 
@@ -189,6 +196,9 @@ export class NewsImageService {
       if (error instanceof HttpException) {
         throw error;
       }
+      throw new InternalServerErrorException(
+        `Failed to delete news gallery image: ${error.message}`,
+      );
     }
   }
 
@@ -218,23 +228,21 @@ export class NewsImageService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get news gallery images: ${error.message}`,
+      );
     }
   }
 
   async getNewsGalleryFile(imageLink: string) {
-    try {
-      const fileBuffer = await this.storageBucket.getImageFile(
-        imageLink,
-        'NEWS_IMAGE_GALLERY',
-      );
+    const fileBuffer = await this.storageBucket.getImageFile(
+      imageLink,
+      'NEWS_IMAGE_GALLERY',
+    );
 
-      const extension = imageLink.split('.').pop();
-      return { fileBuffer: fileBuffer, fileType: `image/${extension}` };
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-    }
+    const extension = imageLink.split('.').pop();
+    return { fileBuffer: fileBuffer, fileType: `image/${extension}` };
   }
 
   async viewGalleryIdsByNewsUUID(newsUUID: string) {
