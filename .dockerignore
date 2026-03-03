@@ -42,17 +42,12 @@ coverage
 *.md
 !README.md
 
-# Exclude prisma config
-prisma.config.ts
-**/prisma.config.ts
-
-# But keep these
-!prisma/schema.prisma
-!prisma/migrations
-
 # Don't ignore these (they are needed for build)
 !tsconfig.json
 !tsconfig.build.json
 !nest-cli.json
 !.eslintrc.js
 !.prettierrc
+!tsconfig.json
+!package.json
+!package-lock.json
