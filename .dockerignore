@@ -42,8 +42,9 @@ coverage
 *.md
 !README.md
 
-# Prisma config (not needed in Docker)
+# Exclude prisma config
 prisma.config.ts
+**/prisma.config.ts
 
 # But keep these
 !prisma/schema.prisma

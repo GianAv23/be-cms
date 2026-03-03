@@ -3,11 +3,6 @@ set -e
 
 echo "Starting entrypoint script..."
 
-# Debug: Print environment variables
-echo "Checking environment variables..."
-echo "NODE_ENV: $NODE_ENV"
-echo "PORT: $PORT"
-
 # Check if DATABASE_URL is set
 if [ -z "$DATABASE_URL" ]; then
     echo "ERROR: DATABASE_URL environment variable is not set!"
@@ -23,16 +18,21 @@ mkdir -p /app/uploads/news-gallery
 mkdir -p /app/uploads/ads
 echo "✓ Upload directories created/verified."
 
-# Run database migrations with explicit schema path
+# Run database migrations with inline DATABASE_URL
 echo "Running database migrations..."
 
-# Run Prisma migrate deploy with explicit DATABASE_URL
-npx prisma migrate deploy --schema=./prisma/schema.prisma
+# Set DATABASE_URL for prisma explicitly and run migration
+export DATABASE_URL="$DATABASE_URL"
 
-if [ $? -eq 0 ]; then
+# Use direct command without config file
+npx prisma migrate deploy --schema=prisma/schema.prisma 2>&1
+
+migration_status=$?
+
+if [ $migration_status -eq 0 ]; then
     echo "✓ Migrations completed successfully."
 else
-    echo "✗ Migration failed!"
+    echo "✗ Migration failed with exit code: $migration_status"
     exit 1
 fi
 
