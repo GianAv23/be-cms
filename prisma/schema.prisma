@@ -69,6 +69,7 @@ model NewsImageGallery {
 
   News News @relation(fields: [news_uuid], references: [uuid], onDelete: Cascade)
 
+  @@index([news_uuid])
   @@map("news_image_gallery")
 }
 

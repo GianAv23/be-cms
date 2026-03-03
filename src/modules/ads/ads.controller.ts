@@ -30,6 +30,9 @@ export class AdsController {
   @Post('create')
   async createAds(@Body() createAdsDto: CreateAdsDto, @Res() res: Response) {
     const result = await this.adsService.createAds(createAdsDto);
+
+    console.log(result);
+
     const response = new responseDto('Success create ads', result);
     return res.status(201).json({ response });
   }

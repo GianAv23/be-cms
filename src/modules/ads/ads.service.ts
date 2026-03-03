@@ -3,6 +3,7 @@ import {
   HttpException,
   Inject,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { AdsCategory } from 'generated/prisma/enums';
@@ -40,6 +41,10 @@ export class AdsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to create ads: ${error.message}`,
+      );
     }
   }
 
@@ -52,7 +57,7 @@ export class AdsService {
       });
 
       if (!existingAds) {
-        throw new NotFoundException(`Ads not found`);
+        throw new NotFoundException(`Ads with uuid ${uuid} not found`);
       }
 
       const updatedAds = await this.prisma.ads.update({
@@ -74,6 +79,10 @@ export class AdsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to edit ads: ${error.message}`,
+      );
     }
   }
 
@@ -89,7 +98,7 @@ export class AdsService {
       });
 
       if (!deletedAds) {
-        throw new NotFoundException(`Ads not found`);
+        throw new NotFoundException(`Ads with uuid ${uuid} not found`);
       }
 
       const imageLink = deletedAds.AdsImage?.link;
@@ -120,6 +129,10 @@ export class AdsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to delete ads: ${error.message}`,
+      );
     }
   }
 
@@ -171,6 +184,10 @@ export class AdsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get all ads: ${error.message}`,
+      );
     }
   }
 
@@ -183,7 +200,7 @@ export class AdsService {
       });
 
       if (!result) {
-        throw new NotFoundException('Ads not found');
+        throw new NotFoundException(`Ads with uuid ${uuid} not found`);
       }
 
       return result;
@@ -191,6 +208,10 @@ export class AdsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get ads by id: ${error.message}`,
+      );
     }
   }
 

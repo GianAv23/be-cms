@@ -1,4 +1,10 @@
-import { HttpException, Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 
 import type { IStorageBucketService } from 'src/common/interfaces/storage_bucket/storage_bucket.service.interface';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
@@ -42,6 +48,10 @@ export class NewsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to create news: ${error.message}`,
+      );
     }
   }
 
@@ -51,11 +61,15 @@ export class NewsService {
     updateNewsDto: UpdateNewsDto,
   ) {
     try {
-      await this.db.news.findUniqueOrThrow({
+      const existingNews = await this.db.news.findUnique({
         where: {
           uuid: uuid,
         },
       });
+
+      if (!existingNews) {
+        throw new NotFoundException(`News with uuid ${uuid} not found`);
+      }
 
       const result = await this.db.$transaction(async (tx) => {
         const updateNews = await tx.news.update({
@@ -86,6 +100,8 @@ export class NewsService {
             created_at: new Date(),
           },
         });
+
+        return updateNews;
       });
 
       return result;
@@ -93,12 +109,16 @@ export class NewsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to update news: ${error.message}`,
+      );
     }
   }
 
   async deleteNews(uuid: string, user_uuid: string) {
     try {
-      const deletedNews = await this.db.news.findUniqueOrThrow({
+      const deletedNews = await this.db.news.findUnique({
         where: {
           uuid: uuid,
         },
@@ -107,6 +127,10 @@ export class NewsService {
           NewsImageGallery: true,
         },
       });
+
+      if (!deletedNews) {
+        throw new NotFoundException(`News with uuid ${uuid} not found`);
+      }
 
       const imageLink = deletedNews.NewsImage?.link;
 
@@ -145,6 +169,10 @@ export class NewsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to delete news: ${error.message}`,
+      );
     }
   }
 
@@ -195,12 +223,16 @@ export class NewsService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get all news: ${error.message}`,
+      );
     }
   }
 
   async getNewsByIdCms(uuid: string) {
     try {
-      const result = await this.db.news.findUniqueOrThrow({
+      const result = await this.db.news.findUnique({
         where: {
           uuid: uuid,
         },
@@ -218,11 +250,19 @@ export class NewsService {
         },
       });
 
+      if (!result) {
+        throw new NotFoundException(`News with uuid ${uuid} not found`);
+      }
+
       return result;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get news by id: ${error.message}`,
+      );
     }
   }
 }

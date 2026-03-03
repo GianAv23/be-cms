@@ -2,6 +2,7 @@ import {
   ConflictException,
   HttpException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -62,6 +63,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to register user: ${error.message}`,
+      );
     }
   }
 
@@ -119,6 +124,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to login user: ${error.message}`,
+      );
     }
   }
 
@@ -197,6 +206,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to add CMS user: ${error.message}`,
+      );
     }
   }
 
@@ -233,6 +246,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to approve user registration: ${error.message}`,
+      );
     }
   }
 
@@ -275,6 +292,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to update CMS user role: ${error.message}`,
+      );
     }
   }
 
@@ -314,6 +335,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to delete CMS user: ${error.message}`,
+      );
     }
   }
 
@@ -337,6 +362,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get user info: ${error.message}`,
+      );
     }
   }
 
@@ -385,6 +414,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get all CMS users: ${error.message}`,
+      );
     }
   }
 
@@ -402,6 +435,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users: ${error.message}`,
+      );
     }
   }
 
@@ -441,6 +478,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users by role: ${error.message}`,
+      );
     }
   }
 
@@ -474,6 +515,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users by status: ${error.message}`,
+      );
     }
   }
 }

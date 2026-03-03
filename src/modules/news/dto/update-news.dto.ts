@@ -20,9 +20,5 @@ export class UpdateNewsDto {
 
   @IsOptional()
   @IsBoolean()
-  add_to_carousel?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
   published?: boolean;
 }
