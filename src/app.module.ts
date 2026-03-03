@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthGuard } from './common/guards/auth.guard';
+import { HealthModule } from './common/health/health.module';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { AdsImageModule } from './modules/ads-image/ads_image.module';
 import { AdsModule } from './modules/ads/ads.module';
@@ -18,6 +19,7 @@ import { UserModule } from './modules/user/user.module';
       envFilePath: '.env',
     }),
     InfrastructureModule,
+    HealthModule,
     UserModule,
     NewsModule,
     NewsImageModule,
