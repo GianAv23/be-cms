@@ -88,6 +88,12 @@ export class UserService {
         );
       }
 
+      if (user.roles.length === 0) {
+        throw new UnauthorizedException(
+          'User registration is pending role assignment',
+        );
+      }
+
       if (!(await compare(loginUser.password, user.password))) {
         throw new UnauthorizedException('Email or password is incorrect');
       }

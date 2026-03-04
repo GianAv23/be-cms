@@ -12,7 +12,7 @@ COPY prisma ./prisma/
 # Install dependencies (including dev dependencies for build)
 RUN npm ci
 
-# Copy necessary config files for build
+# Configuration files required for build are copied
 COPY tsconfig*.json ./
 COPY nest-cli.json ./
 

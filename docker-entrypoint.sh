@@ -3,7 +3,7 @@ set -e
 
 echo "Starting entrypoint script..."
 
-# Debug: Print environment variables
+# Environment variables are printed for debugging
 echo "Checking environment variables..."
 echo "NODE_ENV: $NODE_ENV"
 echo "PORT: $PORT"
@@ -16,17 +16,17 @@ fi
 
 echo "✓ DATABASE_URL is configured"
 
-# Create upload directories
+# Upload directories are created if not present
 echo "Ensuring upload directories exist..."
 mkdir -p /app/uploads/news
 mkdir -p /app/uploads/news-gallery
 mkdir -p /app/uploads/ads
 echo "✓ Upload directories created/verified."
 
-# Run database migrations with explicit schema path
+# Database migrations are applied to target database
 echo "Running database migrations..."
 
-# Run Prisma migrate deploy with explicit DATABASE_URL
+# Prisma migrations are deployed using explicit schema path
 npx prisma migrate deploy --schema=./prisma/schema.prisma
 
 if [ $? -eq 0 ]; then
