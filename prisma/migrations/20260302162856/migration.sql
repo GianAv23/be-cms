@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "ImageCategory" ADD VALUE 'NEWS_IMAGE_GALLERY';

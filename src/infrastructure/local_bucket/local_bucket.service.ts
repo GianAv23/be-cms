@@ -20,22 +20,26 @@ export class LocalBucketService implements IStorageBucketService {
   };
 
   private readonly CATEGORY_TO_ENV_MAP = {
-    NEWS_IMAGE: 'NEWS_PHOTO_UPLOAD_FOLDER_NAME',
-    ADS_IMAGE: 'ADS_PHOTO_UPLOAD_FOLDER_NAME',
+    NEWS_IMAGE: 'NEWS_IMAGE_UPLOAD_FOLDER_NAME',
+    NEWS_IMAGE_GALLERY: 'NEWS_IMAGE_GALLERY_UPLOAD_FOLDER_NAME',
+    ADS_IMAGE: 'ADS_IMAGE_UPLOAD_FOLDER_NAME',
   };
 
   private readonly CATEGORY_TO_PRISMA_MAP = {
-    NEWS_IMAGE: 'newsPhoto',
-    ADS_IMAGE: 'adsPhoto',
+    NEWS_IMAGE: 'newsImage',
+    NEWS_IMAGE_GALLERY: 'newsImageGallery',
+    ADS_IMAGE: 'adsImage',
   };
 
   private readonly CATEGORY_TO_LINK_MAP = {
-    NEWS_IMAGE: 'news-picture',
-    ADS_IMAGE: 'ads-picture',
+    NEWS_IMAGE: 'news-image',
+    NEWS_IMAGE_GALLERY: 'news-gallery',
+    ADS_IMAGE: 'ads-image',
   };
 
   private readonly CATEGORY_TO_PARENT_ATTRIBUTE_MAP = {
     NEWS_IMAGE: 'news_uuid',
+    NEWS_IMAGE_GALLERY: 'news_uuid',
     ADS_IMAGE: 'ads_uuid',
   };
 
@@ -64,13 +68,13 @@ export class LocalBucketService implements IStorageBucketService {
     }
   }
 
-  async uploadPicture(
-    picture: Express.Multer.File,
+  async uploadImage(
+    image: Express.Multer.File,
     category: ImageCategory,
   ): Promise<string> {
     let fileLink: string;
     try {
-      fileLink = `${uuidv4()}.${this.MIME_TYPE_MAP[picture.mimetype]}`;
+      fileLink = `${uuidv4()}.${this.MIME_TYPE_MAP[image.mimetype]}`;
 
       await this.writeStreamAsync(
         join(
@@ -81,7 +85,7 @@ export class LocalBucketService implements IStorageBucketService {
           ),
           fileLink,
         ),
-        picture,
+        image,
       );
     } catch (error) {
       throw new InternalServerErrorException(error);
@@ -89,7 +93,7 @@ export class LocalBucketService implements IStorageBucketService {
     return fileLink;
   }
 
-  async getPictureLinkFromParentUUID(
+  async getImageLinkFromParentUUID(
     parentUUID: string,
     category: ImageCategory,
   ): Promise<string> {
@@ -107,15 +111,15 @@ export class LocalBucketService implements IStorageBucketService {
         throw new NotFoundException();
       }
 
-      fileLink = `${this.configService.getOrThrow('API_URL')}/v1/${this.CATEGORY_TO_LINK_MAP[category]}/photo/${res.link}`;
+      fileLink = `${this.configService.getOrThrow('API_URL')}/${this.CATEGORY_TO_LINK_MAP[category]}/image/${res.link}`;
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
     return fileLink;
   }
 
-  async getPictureFile(
-    pictureLink: string,
+  async getImageFile(
+    imageLink: string,
     category: ImageCategory,
   ): Promise<Buffer<ArrayBufferLike>> {
     try {
@@ -123,7 +127,7 @@ export class LocalBucketService implements IStorageBucketService {
         process.cwd(),
         'uploads',
         this.configService.getOrThrow(this.CATEGORY_TO_ENV_MAP[category]),
-        pictureLink,
+        imageLink,
       );
 
       return await fs.readFile(filePath);
@@ -132,8 +136,8 @@ export class LocalBucketService implements IStorageBucketService {
     }
   }
 
-  async deletePictureFromPictureLink(
-    pictureLink: string,
+  async deleteImageFromImageLink(
+    imageLink: string,
     category: ImageCategory,
   ): Promise<void> {
     try {
@@ -141,7 +145,7 @@ export class LocalBucketService implements IStorageBucketService {
         process.cwd(),
         'uploads',
         this.configService.getOrThrow(this.CATEGORY_TO_ENV_MAP[category]),
-        pictureLink,
+        imageLink,
       );
 
       await fs.unlink(filePath);
@@ -151,7 +155,7 @@ export class LocalBucketService implements IStorageBucketService {
     return;
   }
 
-  async getPictureLinksFromParentUUID(
+  async getImageLinksFromParentUUID(
     parentUUID: string,
     category: ImageCategory,
   ): Promise<Array<string>> {
@@ -174,7 +178,7 @@ export class LocalBucketService implements IStorageBucketService {
 
       for (const row of res) {
         fileLink.push(
-          `${this.configService.getOrThrow('API_URL')}/v1/${this.CATEGORY_TO_LINK_MAP[category]}/photo/${row.link}`,
+          `${this.configService.getOrThrow('API_URL')}/${this.CATEGORY_TO_LINK_MAP[category]}/image/${row.link}`,
         );
       }
     } catch (error) {

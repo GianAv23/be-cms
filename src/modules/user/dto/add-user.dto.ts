@@ -13,15 +13,15 @@ import { Roles } from 'generated/prisma/enums';
 export class AddUserDto {
   @IsNotEmpty()
   @IsString()
-  full_name!: string;
+  full_name: string;
 
   @IsNotEmpty()
   @IsEmail()
-  email!: string;
+  email: string;
 
   @IsNotEmpty()
   @IsStrongPassword()
-  password!: string;
+  password: string;
 
   @IsNotEmpty()
   @Transform(({ value }) => {
@@ -33,5 +33,5 @@ export class AddUserDto {
   @IsArray()
   @ArrayMinSize(1)
   @IsEnum(Roles, { each: true })
-  roles!: Roles[];
+  roles: Roles[];
 }

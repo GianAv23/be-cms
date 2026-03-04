@@ -1,0 +1,52 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Uploads (should not be in image)
+uploads
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+*.md
+!README.md
+
+!tsconfig.json
+!tsconfig.build.json
+!nest-cli.json
+!.eslintrc.js
+!.prettierrc
+!tsconfig.json
+!package.json
+!package-lock.json
