@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'DELETED');
+CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'REQUEST', 'DELETED');
 
 -- CreateEnum
 CREATE TYPE "Roles" AS ENUM ('ADMIN', 'NEWS_EDITOR', 'ADS_EDITOR', 'DELETED');
@@ -19,7 +19,7 @@ CREATE TYPE "ImageCategory" AS ENUM ('NEWS_IMAGE', 'ADS_IMAGE');
 -- CreateTable
 CREATE TABLE "user" (
     "uuid" TEXT NOT NULL,
-    "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE',
+    "status" "UserStatus" NOT NULL DEFAULT 'REQUEST',
     "email" VARCHAR(64) NOT NULL,
     "full_name" TEXT NOT NULL,
     "password" VARCHAR(64) NOT NULL,
@@ -50,9 +50,9 @@ CREATE TABLE "news" (
 CREATE TABLE "news_image" (
     "uuid" TEXT NOT NULL,
     "news_uuid" TEXT NOT NULL,
-    "fileType" "ImageExtension" NOT NULL,
+    "file_type" "ImageExtension" NOT NULL,
     "link" TEXT,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "news_image_pkey" PRIMARY KEY ("uuid")
 );
@@ -88,9 +88,9 @@ CREATE TABLE "ads" (
 CREATE TABLE "ads_image" (
     "uuid" TEXT NOT NULL,
     "ads_uuid" TEXT NOT NULL,
-    "fileType" "ImageExtension" NOT NULL,
+    "file_type" "ImageExtension" NOT NULL,
     "link" TEXT,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ads_image_pkey" PRIMARY KEY ("uuid")
 );

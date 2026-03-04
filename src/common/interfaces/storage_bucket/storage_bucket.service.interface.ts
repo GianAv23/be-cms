@@ -4,25 +4,28 @@ export interface IStorageBucketService {
   save(): Promise<void>;
   delete(): Promise<void>;
 
-  // Merged Picture Operations
-  uploadPicture(
-    picture: Express.Multer.File,
+  uploadImage(
+    image: Express.Multer.File,
     category: ImageCategory,
   ): Promise<string>;
-  getPictureLinkFromParentUUID(
+
+  getImageLinkFromParentUUID(
     parentUUID: string,
     category: ImageCategory,
   ): Promise<string>;
-  getPictureLinksFromParentUUID(
+
+  getImageLinksFromParentUUID(
     parentUUID: string,
     category: ImageCategory,
   ): Promise<Array<string>>;
-  deletePictureFromPictureLink(
-    pictureLink: string,
+
+  deleteImageFromImageLink(
+    imageLink: string,
     category: ImageCategory,
   ): Promise<void>;
-  getPictureFile(
-    pictureLink: string,
+
+  getImageFile(
+    imageLink: string,
     category: ImageCategory,
   ): Promise<Buffer<ArrayBufferLike>>;
 }

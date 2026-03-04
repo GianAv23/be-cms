@@ -2,6 +2,7 @@ import {
   ConflictException,
   HttpException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -13,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AddUserDto } from './dto/add-user.dto';
 import { GetAllUserDto } from './dto/get-all-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 import { UpdateAdminDto } from './dto/update-user.dto';
 import { UserPayload } from './interfaces/login-user';
 
@@ -23,6 +25,51 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async registerUser(registerUser: RegisterUserDto) {
+    try {
+      const checkUser = await this.db.user.findUnique({
+        where: {
+          email: registerUser.email,
+          NOT: {
+            status: UserStatus.DELETED,
+          },
+        },
+      });
+
+      if (checkUser) {
+        throw new ConflictException('Email already exists');
+      }
+
+      if (registerUser.password !== registerUser.confirm_password) {
+        throw new ConflictException(
+          'Password and confirm password do not match',
+        );
+      }
+
+      const newUser = await this.db.user.create({
+        data: {
+          email: registerUser.email,
+          full_name: registerUser.full_name,
+          password: await hash(registerUser.password, 12),
+          status: UserStatus.REQUEST,
+          roles: undefined,
+        },
+      });
+
+      const { password, uuid, ...userWithoutSensitiveData } = newUser;
+
+      return userWithoutSensitiveData;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        `Failed to register user: ${error.message}`,
+      );
+    }
+  }
+
   async loginUser(loginUser: LoginUserDto) {
     try {
       const user = await this.db.user.findUnique({
@@ -31,8 +78,20 @@ export class UserService {
         },
       });
 
-      if (!user || user.status === 'DELETED') {
+      if (!user || user.status === UserStatus.DELETED) {
         throw new NotFoundException('User not found');
+      }
+
+      if (user.status === UserStatus.REQUEST) {
+        throw new UnauthorizedException(
+          'User registration is pending approval',
+        );
+      }
+
+      if (user.roles.length === 0) {
+        throw new UnauthorizedException(
+          'User registration is pending role assignment',
+        );
       }
 
       if (!(await compare(loginUser.password, user.password))) {
@@ -57,7 +116,7 @@ export class UserService {
         },
       });
 
-      return {
+      const tokens = {
         access_token: await this.jwtService.signAsync(payload, {
           expiresIn: '12h',
         }),
@@ -66,10 +125,15 @@ export class UserService {
         }),
         payload,
       };
+      return tokens;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to login user: ${error.message}`,
+      );
     }
   }
 
@@ -99,7 +163,7 @@ export class UserService {
         data: { session_token: newPayload.uniqueUUID },
       });
 
-      return {
+      const tokens = {
         access_token: await this.jwtService.signAsync(newPayload, {
           expiresIn: '12h',
         }),
@@ -108,6 +172,7 @@ export class UserService {
         }),
         payload: newPayload,
       };
+      return tokens;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -120,6 +185,9 @@ export class UserService {
       const existingUser = await this.db.user.findFirst({
         where: {
           email: addUser.email,
+          NOT: {
+            status: UserStatus.DELETED,
+          },
         },
       });
 
@@ -144,10 +212,54 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to add CMS user: ${error.message}`,
+      );
     }
   }
 
-  async updateCmsUser(uuid: string, updateUserDto: UpdateAdminDto) {
+  async approveUserRegistration(uuid: string) {
+    try {
+      const user = await this.db.user.findUniqueOrThrow({
+        where: {
+          uuid: uuid,
+        },
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      if (user.status === UserStatus.ACTIVE) {
+        throw new ConflictException('User is already active');
+      }
+
+      const approvedUser = await this.db.user.update({
+        where: {
+          uuid: uuid,
+        },
+        data: {
+          status: UserStatus.ACTIVE,
+          roles: undefined,
+        },
+      });
+
+      const { password, ...userWithoutSensitiveData } = approvedUser;
+
+      return userWithoutSensitiveData;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        `Failed to approve user registration: ${error.message}`,
+      );
+    }
+  }
+
+  async updateCmsUserRole(uuid: string, updateUserDto: UpdateAdminDto) {
     try {
       const user = await this.db.user.findUniqueOrThrow({
         where: {
@@ -179,19 +291,30 @@ export class UserService {
         },
       });
 
-      return updateUserBySuperAdmin;
+      const { password, ...userWithoutSensitiveData } = updateUserBySuperAdmin;
+
+      return userWithoutSensitiveData;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to update CMS user role: ${error.message}`,
+      );
     }
   }
 
   async deleteCmsUser(uuid: string) {
     try {
-      const user = await this.db.user.findUniqueOrThrow({
+      const user = await this.db.user.findUnique({
         where: {
           uuid: uuid,
+          AND: {
+            status: {
+              in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+            },
+          },
         },
       });
 
@@ -207,6 +330,7 @@ export class UserService {
           data: {
             status: UserStatus.DELETED,
             deleted_at: new Date(),
+            email: `${user.email}_DELETED`,
             session_token: null,
           },
         });
@@ -217,6 +341,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to delete CMS user: ${error.message}`,
+      );
     }
   }
 
@@ -240,6 +368,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get user info: ${error.message}`,
+      );
     }
   }
 
@@ -249,7 +381,9 @@ export class UserService {
       const limit = getAllUser?.limit ?? 10;
       const cmsUsers = await this.db.user.findMany({
         where: {
-          status: UserStatus.ACTIVE,
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
           ...(getAllUser.search
             ? {
                 OR: [
@@ -281,11 +415,26 @@ export class UserService {
           updated_at: true,
         },
       });
-      return cmsUsers;
+
+      const totalCmsUsers = await this.db.user.count({
+        where: {
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
+        },
+      });
+      return {
+        users: cmsUsers,
+        total: totalCmsUsers,
+      };
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to get all CMS users: ${error.message}`,
+      );
     }
   }
 
@@ -293,7 +442,9 @@ export class UserService {
     try {
       const totalCmsUsers = await this.db.user.count({
         where: {
-          status: UserStatus.ACTIVE,
+          status: {
+            in: [UserStatus.ACTIVE, UserStatus.REQUEST],
+          },
         },
       });
       return totalCmsUsers;
@@ -301,6 +452,10 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users: ${error.message}`,
+      );
     }
   }
 
@@ -340,6 +495,47 @@ export class UserService {
       if (error instanceof HttpException) {
         throw error;
       }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users by role: ${error.message}`,
+      );
+    }
+  }
+
+  async countTotalCmsUsersByStatus() {
+    try {
+      const activeUsers = await this.db.user.count({
+        where: {
+          status: UserStatus.ACTIVE,
+        },
+      });
+
+      const requestUsers = await this.db.user.count({
+        where: {
+          status: UserStatus.REQUEST,
+        },
+      });
+
+      const totalCmsUsersByStatus = [
+        {
+          status: UserStatus.ACTIVE,
+          count: activeUsers,
+        },
+        {
+          status: UserStatus.REQUEST,
+          count: requestUsers,
+        },
+      ];
+
+      return totalCmsUsersByStatus;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        `Failed to count total CMS users by status: ${error.message}`,
+      );
     }
   }
 }

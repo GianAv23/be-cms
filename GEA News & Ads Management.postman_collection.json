@@ -1,0 +1,3655 @@
+{
+  "info": {
+    "_postman_id": "41751fb3-bdf5-49c7-9371-b58982cb9e55",
+    "name": "GEA News & Ads Management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52306983"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"full_name\": \"paskasius gian\",\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"confirm_password\": \"Avila123_\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"paskasius gian\",\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"confirm_password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "276"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"114-jHf+XcG5kKSZ9LACMhD3zfR7LDA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 12:31:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User registered successfully\",\n        \"data\": {\n            \"status\": \"REQUEST\",\n            \"email\": \"avila.gian111@gmail.com\",\n            \"full_name\": \"paskasius gian\",\n            \"roles\": [],\n            \"session_token\": null,\n            \"created_at\": \"2026-03-02T12:31:59.448Z\",\n            \"updated_at\": \"2026-03-02T12:31:59.448Z\",\n            \"deleted_at\": null\n        }\n    }\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"paskasius gian\",\r\n    \"email\": \"avila.gian\",\r\n    \"password\": \"Avila123_\",\r\n    \"confirm_password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-vwb6xw4fko1pftM/sPCdaDIquNs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 12:36:07 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 400,\n    \"message\": \"Bad Request Exception\"\n}"
+            },
+            {
+              "name": "409 Conflict (Email)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"paskasius gian\",\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"confirm_password\": \"Avila123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-qoTq6GQhyjTI1ZOVRNBBI/WMG44\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 12:34:08 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 409,\n    \"message\": \"Email already exists\"\n}"
+            },
+            {
+              "name": "409 Conflict (Password)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"paskasius gian\",\r\n    \"email\": \"avila.gian@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"confirm_password\": \"Avila123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "73"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"49-eVurRhlmNrbw34YDF3nVSB+E6T8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 12:34:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 409,\n    \"message\": \"Password and confirm password do not match\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNzI1YmFhNS00NGVhLTRjMDgtOTY5Yy01YjU2MTAyMTgwZTYiLCJ1bmlxdWVVVUlEIjoiYzMxNDQyMDYtZTdkYS00NWI1LWJjNDctY2MwNjQ2OTZlNWViIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTM6NTM6MzkuOTg4WiIsInJvbGUiOlsiQURNSU4iXSwiaWF0IjoxNzcyNDU5NjIwLCJleHAiOjE3NzI1MDI4MjB9.oe8isJCfEgNbOX3ljxW914sJ8EaggdEiMNHmZgVuISg; Path=/; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt_refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNzI1YmFhNS00NGVhLTRjMDgtOTY5Yy01YjU2MTAyMTgwZTYiLCJ1bmlxdWVVVUlEIjoiYzMxNDQyMDYtZTdkYS00NWI1LWJjNDctY2MwNjQ2OTZlNWViIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTM6NTM6MzkuOTg4WiIsInJvbGUiOlsiQURNSU4iXSwiaWF0IjoxNzcyNDU5NjIwLCJleHAiOjE3NzMwNjQ0MjB9.qhiu2lA17YOQlZZia_0cRFUS4mhtqN2UhuaSfb081ik; Path=/; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "896"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"380-axSWYsPKkQ8d0yptYYblo+JozQ0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:53:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Login success\",\n        \"data\": {\n            \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNzI1YmFhNS00NGVhLTRjMDgtOTY5Yy01YjU2MTAyMTgwZTYiLCJ1bmlxdWVVVUlEIjoiYzMxNDQyMDYtZTdkYS00NWI1LWJjNDctY2MwNjQ2OTZlNWViIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTM6NTM6MzkuOTg4WiIsInJvbGUiOlsiQURNSU4iXSwiaWF0IjoxNzcyNDU5NjIwLCJleHAiOjE3NzI1MDI4MjB9.oe8isJCfEgNbOX3ljxW914sJ8EaggdEiMNHmZgVuISg\",\n            \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNzI1YmFhNS00NGVhLTRjMDgtOTY5Yy01YjU2MTAyMTgwZTYiLCJ1bmlxdWVVVUlEIjoiYzMxNDQyMDYtZTdkYS00NWI1LWJjNDctY2MwNjQ2OTZlNWViIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTM6NTM6MzkuOTg4WiIsInJvbGUiOlsiQURNSU4iXSwiaWF0IjoxNzcyNDU5NjIwLCJleHAiOjE3NzMwNjQ0MjB9.qhiu2lA17YOQlZZia_0cRFUS4mhtqN2UhuaSfb081ik\",\n            \"payload\": {\n                \"sub\": \"f725baa5-44ea-4c08-969c-5b56102180e6\",\n                \"uniqueUUID\": \"c3144206-e7da-45b5-bc47-cc064696e5eb\",\n                \"date\": \"2026-03-02T13:53:39.988Z\",\n                \"role\": [\n                    \"ADMIN\"\n                ]\n            }\n        }\n    }\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail\",\r\n    \"password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-vwb6xw4fko1pftM/sPCdaDIquNs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:52:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 400,\n    \"message\": \"Bad Request Exception\"\n}"
+            },
+            {
+              "name": "401 Unauthorized (Pending Approval)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "68"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"44-0CNMaZZHz2UZ5EsI6SRGS9lG94g\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:52:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"User registration is pending approval\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-ayhZa7iMJ7xyGDXgyZu7crHXYgc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:51:34 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 404,\n    \"message\": \"User not found\"\n}"
+            },
+            {
+              "name": "401 Unauthorized (Pending Role Assignment)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"gian.gea@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "75"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4b-DAHlAwtAuejOfP8dp8rNhm40k7U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 04 Mar 2026 01:40:42 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"User registration is pending role assignment\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt_refresh=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "232"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e8-ayOadGQpx+p5vqheOtohKso2fb8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:06:09 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Logout success\",\n        \"data\": {\n            \"sub\": \"f725baa5-44ea-4c08-969c-5b56102180e6\",\n            \"uniqueUUID\": \"c3144206-e7da-45b5-bc47-cc064696e5eb\",\n            \"date\": \"2026-03-02T13:53:39.988Z\",\n            \"role\": [\n                \"ADMIN\"\n            ],\n            \"iat\": 1772459620,\n            \"exp\": 1772502820\n        }\n    }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:06:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add  User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"NEWS_EDITOR\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/add-user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "add-user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"NEWS_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/add-user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "add-user"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "272"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"110-yR6wc0CpJ/NtmSPX5VNaVoDLEq8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:12:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User added successfully\",\n        \"data\": {\n            \"status\": \"ACTIVE\",\n            \"email\": \"gian.new@gmail.com\",\n            \"full_name\": \"gian new\",\n            \"roles\": [\n                \"NEWS_EDITOR\"\n            ],\n            \"session_token\": null,\n            \"created_at\": \"2026-03-02T14:12:32.205Z\",\n            \"updated_at\": \"2026-03-02T14:12:32.205Z\",\n            \"deleted_at\": null\n        }\n    }\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"PRODUCT_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/add-user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "add-user"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-vwb6xw4fko1pftM/sPCdaDIquNs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:12:11 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 400,\n    \"message\": \"Bad Request Exception\"\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"PRODUCT_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/add-user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "add-user"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:11:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"NEWS_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/add-user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "add-user"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:37:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            },
+            {
+              "name": "409 Conflict (Email)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"full_name\": \"gian new\",\r\n    \"email\": \"gian.new@gmail.com\",\r\n    \"password\": \"Avila123_\",\r\n    \"roles\": [\"NEWS_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/add-user",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "add-user"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-qoTq6GQhyjTI1ZOVRNBBI/WMG44\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:13:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 409,\n    \"message\": \"Email already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Approve User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/approve/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "approve",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/approve/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "approve",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "a375fd3f-067d-4679-a5d0-57192002a9de"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "376"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"178-uCYaOhI3pI+Wy/l5RgFHcCFjZz4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:55:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User approved successfully\",\n        \"data\": {\n            \"uuid\": \"a375fd3f-067d-4679-a5d0-57192002a9de\",\n            \"status\": \"ACTIVE\",\n            \"email\": \"gian@gea.com\",\n            \"full_name\": \"gian gea\",\n            \"password\": \"$2b$12$PtY7YVEFZdVMfymNV/lKDeTjYF8pzyLKOOt0G1eb5Pa7Kk037Kzge\",\n            \"roles\": [],\n            \"session_token\": null,\n            \"created_at\": \"2026-03-02T13:54:59.027Z\",\n            \"updated_at\": \"2026-03-02T13:55:50.952Z\",\n            \"deleted_at\": null\n        }\n    }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/approve/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "approve",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "a375fd3f-067d-4679-a5d0-57192002a9de"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:07:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "name": "409 Conflict (Already Active)",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/approve/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "approve",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "2eea3c48-a81b-473e-8ee4-1c4606144682"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "53"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"35-t9lakKS9pava3FELaWDHD+H8lMU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 13:41:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 409,\n    \"message\": \"User is already active\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"avila.gian111@gmail.com\",\r\n    \"password\": \"Avila123_\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/approve/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "approve",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:37:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/update-role/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "update-role",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"roles\": [\"NEWS_EDITOR\", \"ADS_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/update-role/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "update-role",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "a375fd3f-067d-4679-a5d0-57192002a9de"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "333"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"14d-O/ojWW3bHAubd4xz7C9WlNv5/zs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:03:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User roles updated successfully\",\n        \"data\": {\n            \"uuid\": \"a375fd3f-067d-4679-a5d0-57192002a9de\",\n            \"status\": \"ACTIVE\",\n            \"email\": \"gian@gea.com\",\n            \"full_name\": \"gian gea\",\n            \"roles\": [\n                \"NEWS_EDITOR\",\n                \"ADS_EDITOR\"\n            ],\n            \"session_token\": null,\n            \"created_at\": \"2026-03-02T13:54:59.027Z\",\n            \"updated_at\": \"2026-03-02T14:03:27.694Z\",\n            \"deleted_at\": null\n        }\n    }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"roles\": [\"NEWS_EDITOR\", \"ADS_EDITOR\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/update-role/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "update-role",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "a375fd3f-067d-4679-a5d0-57192002a9de"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:07:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/update-role/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "update-role",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:37:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/all?search=gea&page=1&limit=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "all"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "gea",
+                  "description": "Search by Email or Full Name"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "ex: 1"
+                },
+                {
+                  "key": "limit",
+                  "value": "1",
+                  "description": "ex: 10"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/all?search=gea&page=1&limit=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "all"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "gea",
+                      "description": "Search by Email or Full Name"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "297"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"129-KzUJlT1fvxffbQ/0F9M/UQH7as0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 16:00:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"All users retrieved successfully\",\n        \"data\": [\n            {\n                \"uuid\": \"a375fd3f-067d-4679-a5d0-57192002a9de\",\n                \"email\": \"gian@gea.com\",\n                \"full_name\": \"gian gea\",\n                \"roles\": [\n                    \"NEWS_EDITOR\",\n                    \"ADS_EDITOR\"\n                ],\n                \"status\": \"ACTIVE\",\n                \"created_at\": \"2026-03-02T13:54:59.027Z\",\n                \"updated_at\": \"2026-03-02T14:49:35.624Z\"\n            }\n        ]\n    }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/all",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "all"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:08:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/all",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "all"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:36:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "369"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"171-IOa4a70ef1QhMzyXTFnXH2stST0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:04:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User profile retrieved successfully\",\n        \"data\": {\n            \"uuid\": \"f725baa5-44ea-4c08-969c-5b56102180e6\",\n            \"status\": \"ACTIVE\",\n            \"email\": \"avila.gian111@gmail.com\",\n            \"full_name\": \"paskasius gian\",\n            \"roles\": [\n                \"ADMIN\"\n            ],\n            \"session_token\": \"c3144206-e7da-45b5-bc47-cc064696e5eb\",\n            \"created_at\": \"2026-03-02T13:52:06.694Z\",\n            \"updated_at\": \"2026-03-02T13:53:39.994Z\",\n            \"deleted_at\": null\n        }\n    }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b-hGShxOkieaAVDloBubJVM+h58D8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:06:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Total User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/stats/total",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "stats",
+                "total"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/total",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "total"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "70"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"46-j4rwUkL4hThoSFdcnYuZn9c2yOU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:40:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Total users retrieved successfully\",\n        \"data\": 3\n    }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/total",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "total"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:40:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Total User by Role",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/stats/totalbyrole",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "stats",
+                "totalbyrole"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/totalbyrole",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "totalbyrole"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "143"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"8f-pqm5MqnDycRHAf8lgeLxUuW6juo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:42:11 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Total users by role retrieved successfully\",\n        \"data\": [\n            {\n                \"role\": \"NEWS_EDITOR\",\n                \"count\": 2\n            },\n            {\n                \"role\": \"ADS_EDITOR\",\n                \"count\": 1\n            }\n        ]\n    }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/totalbyrole",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "totalbyrole"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:46:07 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Total User by Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/stats/totalbystatus",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "stats",
+                "totalbystatus"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/totalbystatus",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "totalbystatus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "141"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"8d-iTSlJSogL3t5we/MFfyKEIIzTHE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:45:12 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Total users by status retrieved successfully\",\n        \"data\": [\n            {\n                \"status\": \"ACTIVE\",\n                \"count\": 2\n            },\n            {\n                \"status\": \"REQUEST\",\n                \"count\": 1\n            }\n        ]\n    }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/stats/totalbystatus",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "stats",
+                    "totalbystatus"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:46:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token (JWT)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/refresh-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/refresh-token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "refresh-token"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMzc1ZmQzZi0wNjdkLTQ2NzktYTVkMC01NzE5MjAwMmE5ZGUiLCJ1bmlxdWVVVUlEIjoiNmVmZjMyNWYtMTcwZS00OTU0LThlMmUtMjI4NWI2YjFmNTNiIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTQ6NDk6MzUuNjEyWiIsInJvbGUiOlsiTkVXU19FRElUT1IiLCJBRFNfRURJVE9SIl0sImlhdCI6MTc3MjQ2Mjk3NSwiZXhwIjoxNzcyNTA2MTc1fQ.6wn89ruri8BcSlunLqqOpFQyoWNXTSeeGGfkPqagbN8; Path=/; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "jwt_refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMzc1ZmQzZi0wNjdkLTQ2NzktYTVkMC01NzE5MjAwMmE5ZGUiLCJ1bmlxdWVVVUlEIjoiNmVmZjMyNWYtMTcwZS00OTU0LThlMmUtMjI4NWI2YjFmNTNiIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTQ6NDk6MzUuNjEyWiIsInJvbGUiOlsiTkVXU19FRElUT1IiLCJBRFNfRURJVE9SIl0sImlhdCI6MTc3MjQ2Mjk3NSwiZXhwIjoxNzczMDY3Nzc1fQ.jZjaY7luBWidUhPbsrinblDVYKcbbjpVXSpi8OQeUok; Path=/; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "982"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3d6-yMJyU4nZGzltSIxdp4WOU7n/gcc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:49:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"Token refreshed successfully\",\n        \"data\": {\n            \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMzc1ZmQzZi0wNjdkLTQ2NzktYTVkMC01NzE5MjAwMmE5ZGUiLCJ1bmlxdWVVVUlEIjoiNmVmZjMyNWYtMTcwZS00OTU0LThlMmUtMjI4NWI2YjFmNTNiIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTQ6NDk6MzUuNjEyWiIsInJvbGUiOlsiTkVXU19FRElUT1IiLCJBRFNfRURJVE9SIl0sImlhdCI6MTc3MjQ2Mjk3NSwiZXhwIjoxNzcyNTA2MTc1fQ.6wn89ruri8BcSlunLqqOpFQyoWNXTSeeGGfkPqagbN8\",\n            \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMzc1ZmQzZi0wNjdkLTQ2NzktYTVkMC01NzE5MjAwMmE5ZGUiLCJ1bmlxdWVVVUlEIjoiNmVmZjMyNWYtMTcwZS00OTU0LThlMmUtMjI4NWI2YjFmNTNiIiwiZGF0ZSI6IjIwMjYtMDMtMDJUMTQ6NDk6MzUuNjEyWiIsInJvbGUiOlsiTkVXU19FRElUT1IiLCJBRFNfRURJVE9SIl0sImlhdCI6MTc3MjQ2Mjk3NSwiZXhwIjoxNzczMDY3Nzc1fQ.jZjaY7luBWidUhPbsrinblDVYKcbbjpVXSpi8OQeUok\",\n            \"payload\": {\n                \"sub\": \"a375fd3f-067d-4679-a5d0-57192002a9de\",\n                \"uniqueUUID\": \"6eff325f-170e-4954-8e2e-2285b6b1f53b\",\n                \"date\": \"2026-03-02T14:49:35.612Z\",\n                \"role\": [\n                    \"NEWS_EDITOR\",\n                    \"ADS_EDITOR\"\n                ]\n            }\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "6cf2298f-033a-4eed-8fbf-014b1b6c986c"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-ZcsjdA8EYLApcLzFG09A3DDcwbY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:18:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"response\": {\n        \"message\": \"User deleted successfully\"\n    }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "df4dd62f-a8a8-4500-bcc0-364048890d18"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-OvprrwL1sKBmnx1YuZxeWglkynY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:38:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 403,\n    \"message\": \"Forbidden resource\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "uuid",
+                      "value": "6cf2298f-033a-4eed-8fbf-014b1b6c986c"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-ayhZa7iMJ7xyGDXgyZu7crHXYgc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 02 Mar 2026 14:22:21 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"statusCode\": 404,\n    \"message\": \"User not found\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ads",
+      "item": [
+        {
+          "name": "Create Ads",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": false,\r\n    \"title\": \"ALFA x GEA\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"partner_name\": \"ALFA\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ads/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Ads",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": true,\r\n    \"title\": \"ALFA x GEA\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"partner_name\": \"ALFA\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ads/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "5bfba376-c508-470d-a9bd-c70e60b75a00"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "All Ads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ads/ads-cms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                "ads-cms"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": null,
+                  "description": "Search by Title or Content",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "",
+                  "description": "INTERNAL or EXTERNAL",
+                  "disabled": true
+                },
+                {
+                  "key": "published",
+                  "value": null,
+                  "description": "true or false",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "description": "ex: 1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": null,
+                  "description": "ex: 10",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ads by Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ads/ads-cms/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                "ads-cms",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Ads",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": true,\r\n    \"title\": \"ALFA x GEA\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"partner_name\": \"ALFA\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ads/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "cd94f18e-f9c0-4331-8df1-36ea2dc30316"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category Distribution",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ads/stats/categorydistribution",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads",
+                "stats",
+                "categorydistribution"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ads Image",
+      "item": [
+        {
+          "name": "Create or Update Ads Image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "1a637c9f-6d97-4179-899b-985ae3b3e044",
+                  "src": "/C:/Users/Gian Av/Downloads/profil.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ads-image/:ads_uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads-image",
+                ":ads_uuid"
+              ],
+              "variable": [
+                {
+                  "key": "ads_uuid",
+                  "value": "c54d39e6-97b1-4614-b282-d82057548bab"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image Link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ads-image/:ads_uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads-image",
+                ":ads_uuid"
+              ],
+              "variable": [
+                {
+                  "key": "ads_uuid",
+                  "value": "c54d39e6-97b1-4614-b282-d82057548bab"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ads-image/image/:image_link",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ads-image",
+                "image",
+                ":image_link"
+              ],
+              "variable": [
+                {
+                  "key": "image_link",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "item": [
+        {
+          "name": "Create News",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": false,\r\n    \"title\": \"gea news\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/news/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update News",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": true,\r\n    \"title\": \"gea news\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/news/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "7b18bcfd-a7e8-44f3-a313-8e8ffe66ab79"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "All News",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": false,\r\n    \"title\": \"gea news\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/news/news-cms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                "news-cms"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "promo",
+                  "description": "Search by Title or Content",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": null,
+                  "description": "INTERNAL or EXTERNAL",
+                  "disabled": true
+                },
+                {
+                  "key": "published",
+                  "value": null,
+                  "description": "true or false",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": null,
+                  "description": "ex: 1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": null,
+                  "description": "ex: 10",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "News by Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": false,\r\n    \"title\": \"gea news\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/news/news-cms/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                "news-cms",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category Distribution",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/news/stats/categorydistribution",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                "stats",
+                "categorydistribution"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete News",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"published\": false,\r\n    \"title\": \"gea news\",\r\n    \"content\": \"Promo Ramadhan\",\r\n    \"category\": \"EXTERNAL\",\r\n    \"external_link\": \"https://www.devbygian.com/\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/news/:uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": "7b18bcfd-a7e8-44f3-a313-8e8ffe66ab79"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "News Image",
+      "item": [
+        {
+          "name": "Gallery",
+          "item": [
+            {
+              "name": "Create Gallery Image",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "3f0e9a61-e45a-4264-8332-4e066f66bbde",
+                      "value": null
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/news-image/gallery/:news_uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news-image",
+                    "gallery",
+                    ":news_uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "news_uuid",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Gallery Links",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/news-image/gallery/link/:news_uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news-image",
+                    "gallery",
+                    "link",
+                    ":news_uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "news_uuid",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Gallery Metadata",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/news-image/gallery/metadata/:news_uuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news-image",
+                    "gallery",
+                    "metadata",
+                    ":news_uuid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "news_uuid",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Gallery Image File",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/news-image/show-gallery/:gallery_image_link",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news-image",
+                    "show-gallery",
+                    ":gallery_image_link"
+                  ],
+                  "variable": [
+                    {
+                      "key": "gallery_image_link",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Image",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/news-image/gallery/:news_uuid/:image_link",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "news-image",
+                    "gallery",
+                    ":news_uuid",
+                    ":image_link"
+                  ],
+                  "variable": [
+                    {
+                      "key": "news_uuid",
+                      "value": ""
+                    },
+                    {
+                      "key": "image_link",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create or Update News Image",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/news-image/:news_uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news-image",
+                ":news_uuid"
+              ],
+              "variable": [
+                {
+                  "key": "news_uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image Link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/news-image/:news_uuid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news-image",
+                ":news_uuid"
+              ],
+              "variable": [
+                {
+                  "key": "news_uuid",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/news-image/image/:image_link",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "news-image",
+                "image",
+                ":image_link"
+              ],
+              "variable": [
+                {
+                  "key": "image_link",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Full Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Live",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health/live",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "live"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Ready",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
