@@ -158,19 +158,20 @@ export class NewsService {
         },
       });
 
-      if (imageLink) {
-        await this.storageBucketService.deleteImageFromImageLink(
-          imageLink,
-          'NEWS_IMAGE',
-        );
-      }
-
-      for (const galleryImageLink of galleryImageLinks) {
-        await this.storageBucketService.deleteImageFromImageLink(
-          galleryImageLink,
-          'NEWS_IMAGE_GALLERY',
-        );
-      }
+      await Promise.all([
+        imageLink
+          ? this.storageBucketService.deleteImageFromImageLink(
+              imageLink,
+              'NEWS_IMAGE',
+            )
+          : Promise.resolve(),
+        ...galleryImageLinks.map((galleryImageLink) =>
+          this.storageBucketService.deleteImageFromImageLink(
+            galleryImageLink,
+            'NEWS_IMAGE_GALLERY',
+          ),
+        ),
+      ]);
 
       return {
         message: `Success deleted news ${deletedNews.title} by ${user_uuid} `,
